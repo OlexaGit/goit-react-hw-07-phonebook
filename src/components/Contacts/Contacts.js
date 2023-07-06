@@ -2,7 +2,7 @@ import { deleteContact } from 'redux/contactSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/contactSlice';
 import { filterSelectContacts } from 'redux/filterSlice';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import css from './Contacts.module.css';
 
 export const Contacts = () => {
@@ -12,10 +12,10 @@ export const Contacts = () => {
   const handleDelete = id => dispatch(deleteContact(id));
   let arrayContacts = [];
   if (filter === '') {
-    arrayContacts = contacts;
+    arrayContacts = contacts.items;
   } else {
     const normalizedFilter = filter.toLocaleLowerCase();
-    arrayContacts = contacts.filter(contact =>
+    arrayContacts = contacts.items.filter(contact =>
       contact.name.toLocaleLowerCase().includes(normalizedFilter)
     );
   }
@@ -40,15 +40,15 @@ export const Contacts = () => {
   );
 };
 
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    })
-  ),
-  filter: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.string,
-};
+// Contacts.propTypes = {
+//   contacts: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string,
+//       name: PropTypes.string,
+//       number: PropTypes.string,
+//     })
+//   ),
+//   filter: PropTypes.string,
+//   name: PropTypes.string,
+//   number: PropTypes.string,
+// };

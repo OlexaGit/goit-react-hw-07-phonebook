@@ -26,7 +26,7 @@ export const Form = () => {
       number,
     };
     const normalizedFind = name.toLocaleLowerCase();
-    contacts.find(
+    contacts.items.find(
       contact => contact.name.toLocaleLowerCase() === normalizedFind
     )
       ? Notiflix.Notify.warning(`${name} is already in contacts!`)
