@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts } from './operations';
+import { fetchContacts, deleteContact } from './operations';
 
 const initialStateContacts = {
   contacts: {
@@ -10,34 +10,18 @@ const initialStateContacts = {
 };
 
 const contactSlice = createSlice({
-  name: 'contact',
+  name: 'contacts',
   initialState: initialStateContacts,
   reducers: {
     addContact(state, { payload: newContact }) {
       state.contacts.items = [...state.contacts.items, newContact];
     },
 
-    deleteContactItem(state, { payload: removeId }) {
-      state.contacts.items = state.contacts.items.filter(
-        ({ id }) => id !== removeId
-      );
-      state.contacts.isLoading = false;
-    },
-
-    // fetchingInProgress(state) {
-    //   state.contacts.isLoading = true;
-    // },
-
-    // fetchingSuccess(state, action) {
+    // deleteContactItem(state, { payload: removeId }) {
+    //   state.contacts.items = state.contacts.items.filter(
+    //     ({ id }) => id !== removeId
+    //   );
     //   state.contacts.isLoading = false;
-    //   state.contacts.error = null;
-    //   state.contacts.items = action.payload;
-    // },
-
-    // fetchingErrore(state, action) {
-    //   state.contacts.isLoading = false;
-    //   state.contacts.items = [];
-    //   state.contacts.error = action.payload;
     // },
   },
   extraReducers: {
@@ -50,6 +34,20 @@ const contactSlice = createSlice({
       state.contacts.items = action.payload;
     },
     [fetchContacts.rejected](state, action) {
+      state.contacts.isLoading = false;
+      state.contacts.error = action.payload;
+    },
+    [deleteContact.pending](state) {
+      state.contacts.isLoading = true;
+    },
+    [deleteContact.fulfilled](state, action) {
+      state.contacts.isLoading = false;
+      state.contacts.error = null;
+      state.contacts.items = state.contacts.items.filter(
+        ({ id }) => id !== action.payload
+      );
+    },
+    [deleteContact.rejected](state, action) {
       state.contacts.isLoading = false;
       state.contacts.error = action.payload;
     },
