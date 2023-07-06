@@ -17,10 +17,11 @@ const contactSlice = createSlice({
       state.contacts.items = [...state.contacts.items, newContact];
     },
 
-    deleteContact(state, { payload: removeId }) {
+    deleteContactItem(state, { payload: removeId }) {
       state.contacts.items = state.contacts.items.filter(
         ({ id }) => id !== removeId
       );
+      state.contacts.isLoading = false;
     },
 
     // fetchingInProgress(state) {
@@ -55,6 +56,6 @@ const contactSlice = createSlice({
   },
 });
 
-export const { addContact, deleteContact } = contactSlice.actions;
+export const { addContact, deleteContactItem } = contactSlice.actions;
 export default contactSlice.reducer;
 export const selectContacts = state => state.contacts;
