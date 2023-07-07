@@ -8,11 +8,11 @@ import { getContacts } from 'redux/selectors';
 
 export const Contacts = () => {
   const dispatch = useDispatch();
-  // const { contacts } = useSelector(selectContacts);
+  // const { items, isLoading, error } = useSelector(selectContacts);
   const { filter } = useSelector(filterSelectContacts);
   const handleDelete = id => dispatch(deleteContact(id));
   const { items, isLoading, error } = useSelector(getContacts);
-
+  // console.log(items);
   if (isLoading) {
     return 'loading! Spiner...';
   }
@@ -33,9 +33,9 @@ export const Contacts = () => {
   return (
     <div className={css.form}>
       <ul>
-        {arrayContacts.map(({ id, name, number, title }) => (
+        {arrayContacts.map(({ id, name, number }) => (
           <li key={id} className={css.formList}>
-            @ {name}: {number} - {title}
+            @ {name}: {number}
             <button
               className={css.formButton}
               type="button"
