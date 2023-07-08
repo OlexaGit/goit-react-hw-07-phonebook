@@ -32,7 +32,6 @@ const contactSlice = createSlice({
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = action.payload;
-      console.log(state.contacts.items);
     },
     [fetchContacts.rejected](state, action) {
       state.contacts.isLoading = false;

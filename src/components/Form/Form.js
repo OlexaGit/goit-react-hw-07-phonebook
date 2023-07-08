@@ -33,6 +33,7 @@ export const Form = () => {
     )
       ? Notiflix.Notify.warning(`${name} is already in contacts!`)
       : dispatch(addContact(JSON.stringify(contact)));
+    console.log(contact);
     reset();
   };
 
