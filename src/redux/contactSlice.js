@@ -32,7 +32,7 @@ const contactSlice = createSlice({
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = action.payload;
-      // console.log(state.contacts.items);
+      console.log(state.contacts.items);
     },
     [fetchContacts.rejected](state, action) {
       state.contacts.isLoading = false;
@@ -45,9 +45,8 @@ const contactSlice = createSlice({
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = state.contacts.items.filter(
-        ({ id }) => id !== action.payload
+        ({ id }) => id !== action.payload.id
       );
-      console.log(state.contacts.items);
     },
     [deleteContact.rejected](state, action) {
       state.contacts.isLoading = false;
