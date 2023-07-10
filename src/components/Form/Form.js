@@ -25,15 +25,14 @@ export const Form = () => {
     const contact = {
       name,
       number,
-      id: nanoid(),
+      // id: nanoid(),
     };
     const normalizedFind = name.toLocaleLowerCase();
     contacts.items.find(
       contact => contact.name.toLocaleLowerCase() === normalizedFind
     )
       ? Notiflix.Notify.warning(`${name} is already in contacts!`)
-      : dispatch(addContact(JSON.stringify(contact)));
-    console.log(contact);
+      : dispatch(addContact(contact));
     reset();
   };
 

@@ -12,18 +12,6 @@ const initialStateContacts = {
 const contactSlice = createSlice({
   name: 'contacts',
   initialState: initialStateContacts,
-  // reducers: {
-  // addContact(state, { payload: newContact }) {
-  //   state.contacts.items = [...state.contacts.items, newContact];
-  // },
-
-  // deleteContactItem(state, { payload: removeId }) {
-  //   state.contacts.items = state.contacts.items.filter(
-  //     ({ id }) => id !== removeId
-  //   );
-  //   state.contacts.isLoading = false;
-  // },
-  // },
   extraReducers: {
     [fetchContacts.pending](state) {
       state.contacts.isLoading = true;
@@ -55,10 +43,10 @@ const contactSlice = createSlice({
       state.contacts.isLoading = true;
     },
     [addContact.fulfilled](state, { payload: newContact }) {
-      console.log(newContact);
       state.contacts.isLoading = false;
       state.contacts.error = null;
       state.contacts.items = [...state.contacts.items, newContact];
+      console.log(newContact);
     },
     [addContact.rejected](state, action) {
       state.contacts.isLoading = false;
@@ -67,6 +55,5 @@ const contactSlice = createSlice({
   },
 });
 
-// export const { addContact, deleteContactItem } = contactSlice.actions;
 export default contactSlice.reducer;
 export const selectContacts = state => state.contacts;

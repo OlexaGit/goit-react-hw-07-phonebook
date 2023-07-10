@@ -12,7 +12,7 @@ export const Contacts = () => {
   const { filter } = useSelector(filterSelectContacts);
   const handleDelete = id => dispatch(deleteContact(id));
   const { items, isLoading, error } = useSelector(getContacts);
-  // console.log(items);
+
   if (isLoading) {
     return 'loading! Spiner...';
   }
