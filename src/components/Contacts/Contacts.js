@@ -1,23 +1,35 @@
-import { deleteContact } from 'redux/operations';
 import { useSelector, useDispatch } from 'react-redux';
-// import { selectContacts } from 'redux/contactSlice';
-import { filterSelectContacts } from 'redux/filterSlice';
-// import PropTypes from 'prop-types';
+import Loader from 'components/Loader/Loader';
+import PropTypes from 'prop-types';
+import { deleteContact } from 'redux/operations';
+// import { selectContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/contactSlice';
+import { selectFilterContacts } from 'redux/selectors';
 import css from './Contacts.module.css';
-import { getContacts } from 'redux/selectors';
 
 export const Contacts = () => {
   const dispatch = useDispatch();
-  // const { items, isLoading, error } = useSelector(selectContacts);
-  const { filter } = useSelector(filterSelectContacts);
+  const { items, isLoading, error } = useSelector(selectContacts);
+  const { filter } = useSelector(selectFilterContacts);
   const handleDelete = id => dispatch(deleteContact(id));
-  const { items, isLoading, error } = useSelector(getContacts);
 
-  if (isLoading) {
-    return 'loading! Spiner...';
+  if (isLoading && !error) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
   if (error) {
-    return 'Error: ' + error;
+    return (
+      <div>
+        <br />
+        <p>Ooops!!! Something went wrong!</p>
+        <br />
+        <p>Error:</p>
+        <p>{error}</p>
+      </div>
+    );
   }
 
   let arrayContacts = [];
@@ -50,15 +62,15 @@ export const Contacts = () => {
   );
 };
 
-// Contacts.propTypes = {
-//   contacts: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string,
-//       name: PropTypes.string,
-//       number: PropTypes.string,
-//     })
-//   ),
-//   filter: PropTypes.string,
-//   name: PropTypes.string,
-//   number: PropTypes.string,
-// };
+Contacts.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    })
+  ),
+  filter: PropTypes.string,
+  name: PropTypes.string,
+  number: PropTypes.string,
+};
